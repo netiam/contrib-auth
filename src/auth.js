@@ -9,11 +9,16 @@ import {
 import BearerStrategy from 'passport-http-bearer'
 import Promise from 'bluebird'
 
+function isValidToken(token) {
+  const ok = (new Date(token.expires_at)).getTime() > (new Date()).getTime()
+  return ok ? Promise.resolve() : Promise.reject(new Error('Token expired'))
+}
+
 export default function({
   userModel,
   tokenModel,
   validatePassword = bcrypt.compare,
-  validateToken = 'validateToken',
+  validateToken = isValidToken,
   usernameField = 'email',
   passwordField = 'password'}) {
 
@@ -34,7 +39,6 @@ export default function({
           })
       })
       .catch(bcrypt.MISMATCH_ERROR, () => {
-        console.log()
         done(new Error('Invalid password'))
       })
       .catch(done)
@@ -52,8 +56,11 @@ export default function({
         if (!token) {
           return done(new Error('Invalid token'))
         }
-        // TODO check if token has expired
-        return token.getOwner()
+        // TODO allow selection of token validation strategy
+        return validateToken(token)
+          .then(() => {
+            return token.getOwner()
+          })
       })
       .then(owner => {
         if (!owner) {
