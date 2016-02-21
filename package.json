@@ -16,7 +16,11 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "dependencies": {
-    "bcrypt-as-promised": "^1.1.0"
+    "bcrypt-as-promised": "^1.1.0",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.2.0",
@@ -28,13 +32,16 @@
     "express": "^4.13.3",
     "istanbul": "0.4.1",
     "mocha": "^2.3.4",
+    "moment": "^2.11.2",
     "netiam": "^7.3.0",
     "netiam-contrib-json": "^1.0.1",
+    "netiam-contrib-transform": "^1.0.1",
     "semantic-release": "4.3.5",
     "sequelize": "^3.19.1",
     "should": "^8.1.1",
     "sqlite3": "^3.1.1",
-    "supertest": "1.1.0"
+    "supertest": "^1.1.0",
+    "uuid": "^2.0.1"
   },
   "repository": {
     "type": "git",

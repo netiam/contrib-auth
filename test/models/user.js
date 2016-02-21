@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt-as-promised'
 import Promise from 'bluebird'
 import Sequelize from 'sequelize'
 import {db} from '../utils/db'
+import Token from './token'
 
 const User = db.define('User', {
   id: {
@@ -55,5 +56,7 @@ const User = db.define('User', {
     }
   }
 })
+
+Token.belongsTo(User, {as: 'owner'})
 
 export default User
