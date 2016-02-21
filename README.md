@@ -10,7 +10,7 @@
 
 ```js
 netiam()
-  .auth({model: User})
+  .auth({userModel: User})
   .plugin(…)
 ```
 
