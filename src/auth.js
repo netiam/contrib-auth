@@ -1,4 +1,5 @@
 import assert from 'assert'
+import bcrypt from 'bcrypt-as-promised'
 import passport from 'passport'
 import LocalStrategy from 'passport-local'
 import {
@@ -11,6 +12,8 @@ import Promise from 'bluebird'
 export default function({
   userModel,
   tokenModel,
+  validatePassword = bcrypt.compare,
+  validateToken = 'validateToken',
   usernameField = 'email',
   passwordField = 'password'}) {
 
@@ -24,8 +27,15 @@ export default function({
         if (!user) {
           return done(new Error('Invalid user'))
         }
-        // TODO validate password
-        done(null, user.toJSON())
+        // TODO allow selection of password validation strategy
+        return validatePassword(password, user[passwordField])
+          .then(() => {
+            done(null, user.toJSON())
+          })
+      })
+      .catch(bcrypt.MISMATCH_ERROR, () => {
+        console.log()
+        done(new Error('Invalid password'))
       })
       .catch(done)
   }
