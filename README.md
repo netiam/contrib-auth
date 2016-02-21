@@ -4,7 +4,7 @@
 [![Dependencies](https://david-dm.org/netiam/contrib-auth.svg)](https://david-dm.org/netiam/contrib-auth)
 [![npm version](https://badge.fury.io/js/netiam-contrib-auth.svg)](http://badge.fury.io/js/netiam-contrib-auth)
 
-> A auth 2.0 plugin for netiam
+> An authentication plugin for netiam
 
 ## Example
 
