@@ -75,7 +75,20 @@ export default function({
           return done(new HTTPError(AUTH_INVALID_TOKEN))
         }
         // TODO allow selection of token validation strategy
-        return validateToken(token).then(() => token.getOwner())
+        return validateToken(token)
+          .then(() => token.getOwner())
+          .then(owner => {
+            const query = {where: {id: owner.id}}
+            if (roleModel) {
+              query.include = [
+                {
+                  model: roleModel,
+                  as: roleField
+                }
+              ]
+            }
+            return userModel.findOne(query)
+          })
       })
       .then(owner => {
         if (!owner) {
