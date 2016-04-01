@@ -1,9 +1,11 @@
 import request from 'supertest'
 import appMock from './utils/app'
+import Role from './models/role'
 import Token from './models/token'
 import User from './models/user'
 import accessTokenFixture from './fixtures/access-token'
 import refreshTokenFixture from './fixtures/refresh-token'
+import roleFixture from './fixtures/role'
 import userFixture from './fixtures/user'
 import {
   setup,
@@ -18,8 +20,13 @@ describe('netiam-contrib', () => {
   after(teardown)
 
   it('should create a user and token pair', done => {
-    User
-      .create(userFixture)
+    Role
+      .create(roleFixture)
+      .then(role => {
+        return User
+          .create(userFixture)
+          .then(user => user.setRole(role))
+      })
       .then(() => Promise.all([
         Token.create(accessTokenFixture),
         Token.create(refreshTokenFixture)

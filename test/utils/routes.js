@@ -1,6 +1,7 @@
 import express from 'express'
 import netiam from 'netiam'
 import {plugins} from './api'
+import Role from '../models/role'
 import Token from '../models/token'
 import User from '../models/user'
 
@@ -13,7 +14,8 @@ export default function(app) {
     netiam({plugins})
       .auth({
         userModel: User,
-        tokenModel: Token
+        tokenModel: Token,
+        roleModel: Role
       })
       .transform((req, res) => res.body = req.user)
       .json()
@@ -24,7 +26,8 @@ export default function(app) {
     netiam({plugins})
       .auth({
         userModel: User,
-        tokenModel: Token
+        tokenModel: Token,
+        roleModel: Role
       })
       .transform((req, res) => res.body = req.user)
       .json()

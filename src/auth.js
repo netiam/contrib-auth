@@ -38,8 +38,18 @@ export default function({
   assert.ok(tokenModel)
 
   function handle(username, password, done) {
+    const query = {where: {[usernameField]: username}}
+    if (roleModel) {
+      query.include = [
+        {
+          model: roleModel,
+          as: roleField
+        }
+      ]
+    }
+
     userModel
-      .findOne({where: {[usernameField]: username}})
+      .findOne(query)
       .then(user => {
         if (!user) {
           return done(new HTTPError(AUTH_INVALID_USERNAME))
@@ -86,16 +96,18 @@ export default function({
     done(null, user.id)
   })
   passport.deserializeUser((id, done) => {
+    const query = {where: {id}}
+    if (roleModel) {
+      query.include = [
+        {
+          model: roleModel,
+          as: roleField
+        }
+      ]
+    }
+
     userModel
-      .findOne({
-        where: {id: id},
-        include: [
-          {
-            model: roleModel,
-            as: roleField
-          }
-        ]
-      })
+      .findOne(query)
       .then(user => {
         if (!user) {
           return
