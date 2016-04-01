@@ -26,10 +26,13 @@ function isValidToken(token) {
 export default function({
   userModel,
   tokenModel,
+  roleModel,
   validatePassword = bcrypt.compare,
   validateToken = isValidToken,
   usernameField = 'email',
-  passwordField = 'password'}) {
+  passwordField = 'password',
+  roleField = 'role'
+}) {
 
   assert.ok(userModel)
   assert.ok(tokenModel)
@@ -84,7 +87,21 @@ export default function({
   })
   passport.deserializeUser((id, done) => {
     userModel
-      .findOne({where: {id: id}})
+      .findOne({
+        where: {id: id},
+        include: [
+          {
+            model: roleModel,
+            as: roleField
+          }
+        ]
+      })
+      .then(user => {
+        if (!user) {
+          return
+        }
+        return user.toJSON()
+      })
       .then(user => done(null, user))
       .catch(done)
   })
