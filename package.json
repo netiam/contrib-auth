@@ -30,7 +30,7 @@
     "codeclimate-test-reporter": "0.3.3",
     "eslint": "^3.0.0",
     "express": "^4.13.3",
-    "mocha": "^2.5.0",
+    "mocha": "^3.0.0",
     "istanbul": "0.4.4",
     "moment": "^2.11.2",
     "netiam": "^7.3.0",
