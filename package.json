@@ -33,7 +33,7 @@
     "mocha": "^4.0.0",
     "istanbul": "0.4.5",
     "moment": "^2.11.2",
-    "netiam": "^7.3.0",
+    "netiam": "^8.0.0",
     "netiam-contrib-json": "^1.0.1",
     "netiam-contrib-transform": "^1.0.1",
     "semantic-release": "11.0.2",
