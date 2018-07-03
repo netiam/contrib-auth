@@ -2,4 +2,4 @@
 --require should
 --reporter spec
 --ui bdd
---compilers js:babel-core/register
+--require babel-register

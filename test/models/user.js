@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt-as-promised'
+import bcrypt from 'bcrypt'
 import Sequelize from 'sequelize'
 import {db} from '../utils/db'
 import Token from './token'
