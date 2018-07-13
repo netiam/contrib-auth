@@ -14,6 +14,10 @@ netiam()
   .plugin(…)
 ```
 
+## Attention
+
+Never use `2.0` release. Wrong passwords result in false positives on sign in.
+
 ## License
 
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
